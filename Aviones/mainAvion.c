@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <pthread.h>
 #include "consola.h"
 #include "avion.h"
 #define LongIP 15
@@ -16,8 +17,6 @@ int main(int argc, char * argv []) {
     char * strPuerto = (char*)malloc (LongPuerto);
     int puerto = 0;
     ST_AVION avion;
-    int pistaAsignada = 0;
-
 
     parsearTextoParametro(argv [1], IP, strPuerto, &puerto, avion.id, avion.modelo, &avion.capMax);
 
@@ -30,12 +29,13 @@ int main(int argc, char * argv []) {
 
 	int cliente = socket(AF_INET, SOCK_STREAM, 0);
 
+    pthread_t gestionCombustible;
 
-
+    pthread_create(&gestionCombustible, NULL, (void*)restarCombustible, (void*)&avion);
 
     system ("clear");
 
-    abrirConsola(direccionServidor, cliente, IP, strPuerto, &avion, &pistaAsignada);
+    abrirConsola(direccionServidor, cliente, IP, strPuerto, &avion);
 
     return 0;
 }
