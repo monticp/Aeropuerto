@@ -8,6 +8,7 @@
 #include "aviones.h"
 #include "listaAviones.h"
 #include "gestionPista.h"
+#include "consola.h"
 #define tamanioBufferMensaje 100
 
 
@@ -45,6 +46,7 @@ int main(void) {
 
     int IDReservaPista = 0;
     int cliente = 0;
+    int contAviones = 0;
 
     aunarListas(&todasLasListas,&cliente, &IDReservaPista, listaAvion, colaAterrizar, &colaDespegar);
 
@@ -52,7 +54,9 @@ int main(void) {
 
     pthread_create(&gestionPista, NULL, (void*)gestionarPista, (void*)&todasLasListas);
 
+    pthread_t consola;
 
+    pthread_create(&consola, NULL, (void*)abrirConsola, (void*)&todasLasListas);
     while (1){
 
         struct sockaddr_in direccionCliente;
@@ -63,18 +67,11 @@ int main(void) {
 
         pthread_t gestionClientes;
 
-        pthread_create(&gestionClientes, NULL,(void*)recibirMensaje, (void*)&todasLasListas);
+        pthread_create(&gestionClientes, NULL,(void*)recibirMensajeEnHilo, (void*)&todasLasListas);
 
 
-        printf("Recibí una conexión en %d!!\n", cliente);
+        printf("\n \t\tRecibí una conexión en %d!!\n", cliente);
 
-        //recibirMensaje(&todasLasListas);
-        /*printf("ID: %i", avion.id);
-        printf("Modelo: %s", avion.modelo);
-        printf("Estado: %c", avion.estado);
-        printf("Cantidad max de combustible: %i", avion.capMax);
-        printf("Cantidad de combustible: %i", avion.cantCombustible);
-        */
         //close (servidor);
     }
 

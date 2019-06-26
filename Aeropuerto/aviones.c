@@ -47,8 +47,8 @@
                 case 0: // La solicitud se proceso exitosamente
                     send(cliente, "0", longMensajeEnviado, 0);
                 break;
-                case 1: // La pista fue cedida a cliente
-                    send(cliente, "1", longMensajeEnviado, 0);
+                case 2: // La pista fue cedida a cliente
+                    send(cliente, "2", longMensajeEnviado, 0);
                 break;
                 case 3: // El avion despego
                     send(cliente, "3", longMensajeEnviado, 0);
@@ -57,4 +57,30 @@
                     send(cliente, "4", longMensajeEnviado, 0);
                 break;
             }
+    }
+
+    void mostrarEstadoDeAvion (ST_AVION * avion){
+        switch(avion->estado){
+                case 'h':
+                    printf("'En Hangar'\n");
+                break;
+                case 'g':
+                    printf(" 'Listo/Hangar'\n");
+                break;
+                case 'l':
+                    printf(" 'Listo/Despegar'\n");
+                break;
+                case 'd':
+                    printf(" 'Despegando'\n");
+                break;
+                case 'v':
+                    printf(" 'En Vuelo'\n");
+                break;
+                case 'e':
+                    printf(" 'Espera/Aterrizar'\n");
+                break;
+                case 'a':
+                    printf(" 'Aterrizando'\n");
+                break;
+        }
     }

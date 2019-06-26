@@ -26,6 +26,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="aviones.h" />
+		<Unit filename="consola.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="consola.h" />
 		<Unit filename="gestionPista.c">
 			<Option compilerVar="CC" />
 		</Unit>
